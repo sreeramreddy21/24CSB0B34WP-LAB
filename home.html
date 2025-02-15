@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIT Warangal</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .top{
+            width: 100vw;
+            height: 40px;
+            background-color: #002147;
+        }
+        .logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo >img{
+             width:500px;
+            height: 120px;
+        }
+        .navList{
+            height: 20px;
+        }
+        .list{
+            background-color: #072747;
+            display: flex;
+            padding-left: 30px;
+            gap: 50px;
+            list-style-type:none;
+            font-size: 20px;
+            height: 35px;
+            align-items: center;
+        }
+        .list a{
+            color: white;
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        .photo-slider {
+            margin-top: 20px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .slides {
+    display: flex;
+    animation: scroll 15s linear infinite;
+  }
+  
+  .slides img {
+    width:550px;
+    height:350px;
+    flex-shrink: 0;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  .announcement{
+    margin-top: 10px;
+            padding: 5px;
+            border: 3px solid #2675ce ;
+            font-size: 20px;;
+  }
+  .news{
+    width: 95%;
+    height: 400px;
+    margin-top: 20px;
+    margin-left: 40px;
+    border: 2px solid #002147;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+  }
+  .box{
+    width: 30%;
+    height: 380px;
+    border: 2px solid #002147;
+    border-radius: 5px;
+  }
+  h2{
+    margin-left: 30px;
+  }
+  .subImage img{
+    width:100%;
+    height: 300px;
+  }
+  .subText{
+    margin-left: 20px;
+  }
+  .subText a:hover{
+    color: red;
+  }
+  .photo-slider1 {
+            margin-top: 20px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .slides1 {
+    display: flex;
+    animation: scroll 15s linear infinite;
+  }
+  
+  .slides1 img {
+    width:300px;
+    height:250px;
+    flex-shrink: 0;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  h1{
+    text-align: center;
+    color: red;
+  }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top"></div>
+        <div class="logo">
+            <img src="image.png" alt="NITW"/>
+        </div>
+        <nav class="navList">
+            <ul class="list">
+                <li><a href="#">Institute</a></li>
+                <li><a href="#">Administration</a></li>
+                <li><a href="#">Acadamics</a></li>
+                <li><a href="#">R&D</a></li>
+                <li><a href="#">Students</a></li>
+                <li><a href="#">Alumini</a></li>
+            </ul>
+        </nav>
+        <div class="photo-slider">
+            <div class="slides">
+               <img src="1.jpg">
+               <img src="2.jpg">
+               <img src="3.jpg">
+               <img src="4.jpg">
+               <img src="5.jpg">
+            </div>
+        </div>
+        <div class="announcement">
+            <marquee scrollamount="10"><strong>Notice-List of Candidates provisionally shortlisted/not-shortlisted for the Group-'A' and Group-'B'(Deputation) posts notified vide Advt.No.05/2024 dt.29/11/2024 </strong></marquee>
+        </div>
+    </header>
+    <main>
+        <br>
+        <h2>Upcoming Events</h2>
+        <div class="news">
+            <div class="box">
+                <div class="subImage">
+                    <img src="6.jpg">
+                </div>
+                <div class="subText">
+                    <p><strong>Gian Course (6-10 January 2025)</strong></p>
+                    <br>
+                    <p>For More information  <a href="#">Click Here</a></p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="subImage">
+                    <img src="7.jpg">
+                </div>
+                <div class="subText">
+                    <p><strong>Invitation to Industry Guest Talk by the Electrical Engineering Department</strong></p>
+                    <br>
+                    <p>For More information  <a href="#">Click Here</a></p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="subImage">
+                    <img src="8.jpg">
+                </div>
+                <div class="subText">
+                    <p><strong>One-Week Sparc Workshop</strong></p>
+                    <br>
+                    <p>For More information  <a href="#">Click Here</a></p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h1>Campus Life</h1>
+        <div class="photo-slider1">
+            <div class="slides1">
+                <img src="10.jpg">
+                <img src="11.jpg">
+                <img src="12.jpg">
+                <img src="13.jpg">
+                <img src="14.jpg">
+                <img src="15.jpg">
+                <img src="16.jpg">
+             </div>
+        </div>
+    </main>
+</body>
+</html>
