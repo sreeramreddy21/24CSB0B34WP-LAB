@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carwale</title>
+    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+<style>
+    *{
+        margin: 0px;
+    }
+    .box1{
+            background-color: #002147;
+            width: 100vw;
+            height: 40px;
+    }
+    .header{
+        width: 100vw;
+        height: 120px;
+        display: flex;
+    }
+    .logo img{
+        margin-left: 20px;
+        width:180px;
+        height: 70px;
+    }
+    .list{
+        margin-top: 0px;
+        margin-left: 55px;
+        width: 76vw;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap:70px;
+        background-color: #002147;
+        font-size: 25px;
+        list-style-type: none;
+        height: 60px;
+    }
+    .list a{
+        text-decoration: none;
+         height: 100%;
+            color:white ;
+    }
+    .list a:hover{
+        text-decoration: underline;
+        color:#6aa6eb
+    }
+    .blog{
+        width:97vw;
+        height: 600px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 30px;
+        
+       
+    }
+    .box3{
+        margin-left: 30px;
+        width: 350px;
+        height: 600px;
+        border: 2px solid #002147;
+        box-shadow: 2px 2px 2px #002147;
+        border-radius: 10px;
+        transition: all 0.5s linear;
+    }
+    .box3:hover{
+       box-shadow: 5px 5px 10px;
+    }
+    .box3 img{
+        width: 100%;
+        transition: all 0.5s linear;
+    }
+    .info p{
+        text-align: center;
+        font-size: large;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    }
+    .info h2{
+        font-family: "Trirong", serif;
+        text-align: center;
+        text-shadow: 1px 1px 2px black;
+
+    }
+    .price h3{
+        padding-left: 20px;
+        font-size: 30px;
+        color: #002147;
+    }
+    .price p{
+        text-align: left;
+        padding-left: 20px;
+    }
+    .emi{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .color{
+        color:#096ada;
+       
+    }
+    button{
+        width:150px ;
+        height:40px;
+        border:2px solid ;
+        border-radius:10px;
+        color:#096ada;
+        background-color: white;
+        
+    }
+    button a{
+        color:#096ada;
+        text-decoration: none;
+        font-size:15px;
+    }
+    .box2{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 20px;
+    }
+    .box2 img{
+        width: 100%;
+        height: 300px;
+        padding-bottom: 600px;
+    }
+    
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to right, #333, #000);
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+}
+
+footer p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.icon {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.icon img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+.icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+fieldset{
+    font-size: 20px;
+}
+.bounce-out-down:hover {
+  animation: bounce-out-down 2s ease infinite;
+}
+@keyframes bounce-out-down {
+  0% { transform: translateY(0); }
+  20% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+h1{
+    text-align: center;
+    color: #002147;
+    font-size: 50px;
+    font-family: "Sofia", sans-serif;
+}
+.box3 img:hover{
+    transform: scale(0.8);
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <div class="box1">
+
+        </div>
+        <div class="header">
+            <div class="logo">
+                <img src="carwale.jpg">
+            </div>
+            <nav class="navlist">
+                <ul class="list">
+                    <li><a href="blog.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="blog.html">Categories</a></li>
+                    <li><a href="https://www.carwale.com/about-us/">About Us</a></li>
+                    <li><a href="contactus.html">Contact</a></li>
+                </ul>
+    
+            </nav>
+        </div>
+        <div class="hero">
+            <h1>Carwale</h1>
+        </div>
+        <div class="box2">
+            <img src="allbrands.png">
+        </div>
+    </header>
+    
+    <div class="blog">
+        <div class="box3">
+            <img src="5seriesnewseriesrightfrontthreequarter.jpg">
+            <div class="info">
+                <br>
+                <h2>BMW 5 Series</h2>
+                <br>
+                <p>The price of BMW 5 Series, a 5 seater Sedan, starts from of Rs. 72.90 Lakh. It is available in 2 variants, with an engine of 1998 cc and a choice of 1 transmission: Automatic. 5 Series has an NCAP rating of 5 stars and comes with 9 airbags. BMW 5 Series is available in 4 colours. Users have reported a mileage of 15.7 kmpl for 5 Series.</p>
+                <div class="price">
+                    <br>
+                    <h3>Rs. 72.90 Lakh</h3>
+                    <p>Ex-Showroom price,Mumbai</p>
+                </div>
+                <br>
+                <div class="emi">
+                
+                    <div class="part1">
+                        <p>Calculate your EMI</p>
+                        <p class="color">EMI Calculator</p>
+                    </div>
+                    <div class="part2">
+                        <button><a href="#">Get EMI Offers</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box3">
+            <img src="cclasscclassrightfrontthreequarter.jpg">
+            <div class="info">
+                <br>
+                <h2>Mercedes-Benz C-Class</h2>
+                <br>
+                <p>The price of Mercedes-Benz C-Class, a 5 seater Sedan, ranges from Rs. 59.40 - 66.25 Lakh. It is available in 3 variants, with engine options ranging from 1496 to 1999 cc and a choice of 1 transmission: Automatic. C-Class comes with 7 airbags. Mercedes-Benz C-Class is available in 7 colours. Users have reported a mileage of 17.5 kmpl for C-Class.</p>
+                <div class="price">
+                    <br>
+                    <h3>Rs. 59.40 - 66.25 Lakh</h3>
+                    <p>Ex-Showroom price,Mumbai</p>
+                </div>
+                <br>
+                <div class="emi">
+                
+                    <div class="part1">
+                        <p>Calculate your EMI</p>
+                        <p class="color">EMI Calculator</p>
+                    </div>
+                    <div class="part2">
+                        <button><a href="#">Get EMI Offers</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box3">
+            <img src="carnivalnewcarnivalrightfrontthreequarter.jpg">
+            <div class="info">
+                <br>
+                <h2>Kia Carnival</h2>
+                <br>
+                <p>The Kia Carnival offers six and seven-seat options with large amounts of space and lots of drivers, comfort-oriented and smart user technology. It is only being offered in a diesel automatic guise with a modern KIa design, and modern interiors and leans heavily on practicality and space inside.</p>
+                <div class="price">
+                    <br><br>
+                    <h3>Rs. 63.91 Lakh </h3>
+                    <p>Ex-Showroom price,Mumbai</p>
+                </div>
+                <br>
+                <div class="emi">
+                
+                    <div class="part1">
+                        <p>Calculate your EMI</p>
+                        <p class="color">EMI Calculator</p>
+                    </div>
+                    <div class="part2">
+                        <button><a href="#">Get EMI Offers</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subscribe">
+        <form action="#">
+            <br><br>
+            <fieldset>
+                <legend><strong>Enter your Details</strong></legend>
+                
+                <strong>Name:</strong>
+                <input type="text" placeholder="Enter your Name">
+                <br><br>
+                <strong>E-Mail:</strong>
+                <input type="text" placeholder="Enter your email">
+                <br><br><br>
+                <button class="bounce-out-down">Subscribe</button>
+            </fieldset>
+           
+        </form>
+    </div>
+    <br><br>
+    <footer>
+        <p>Follow us on</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/" class="icon rotate"><i class="fab fa-facebook-f"></i><img src="facebook.png"></a>
+            <a href="https://x.com/?lang=en-in" class="icon bounce"><i class="fab fa-twitter"></i><img src="twitter.jpg"></a>
+            <a href="https://www.instagram.com/" class="icon rotate"><i class="fab fa-instagram"></i><img src="insta.jpg"></a>
+            <a href="https://in.linkedin.com/" class="icon bounce"><i class="fab fa-linkedin-in"></i><img src="linkedin.jpg"></a>
+        </div>
+    </footer>
+</body>
+</html>
