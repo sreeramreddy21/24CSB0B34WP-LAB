@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator & Image Grid</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        
+        /* Calculator Styles */
+        .calculator {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #000000;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0px;
+            height: 80px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: right;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            background: #e39f21;
+           
+            color: white;
+            border-radius: 15px;
+        }
+        button:hover {
+            background: #df6d03ec;
+        }
+       
+        .sticky{
+            display: flex;
+            width: 600px;
+            
+         min-height: 100px;
+           margin-left: 80px;
+            border: 3px solid black;
+        }
+        .imgs{
+           
+            width:250px;
+            height: 250px;
+            padding-top:50px;
+            top:20px;
+            position: sticky;
+           
+        }
+        .text{
+            width: 60%;
+            height: 100%;
+            border: 2px solid black;
+
+        }
+        img{
+            width: 100%;
+            height: 100%;
+           
+         
+        }
+        h1{
+            text-decoration:underline;
+        }
+        .mask1 {
+                        -webkit-mask-image: url(s10.jpg);
+  mask-image: url(s10.jpg);
+  mask-repeat: no-repeat;    
+}
+.grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .grid-container img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .grid-container img:hover {
+            transform: scale(1.05);
+        }
+        #s1{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+        }
+        #s2{
+            border-radius: 10px;
+            width: 200px;
+            height: 200px;
+        }
+        .container {
+          
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.topleft {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 20px;
+}
+
+#s3 { 
+ 
+  opacity: 0.7;
+}
+.t{
+   display: flex;
+justify-content: center;
+}
+#s4{
+    filter: blur(3px);
+    width: 300px;
+  height: 300px;
+}
+#s5{
+  filter: drop-shadow(8px 8px 10px gray);
+  width: 300px;
+  height: 300px;
+}
+#s6{
+    filter:opacity(0.6);
+    width: 300px;
+  height: 300px;
+}
+    </style>
+</head>
+<body>
+    <h1>Responsive Calculator & Image Grid</h1>
+    
+    <div class="calculator">
+        <input type="text" disabled>
+        <div class="buttons">
+            <button>C</button>
+            <button>/</button>
+            <button>*</button>
+            <button>-</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>+</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>=</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>0</button>
+        </div>
+    </div><br><br>
+    <h1>Sticky Image</h1>
+    <br><br>
+   <div class="sticky">
+    <div class="imgs">
+        <img src="p1.png">
+    </div>
+    <div class="text">
+        <h2>Scroll Down</h2>
+        <p>Some example text..</p>
+        <p><b>Scroll back up again to "remove" the sticky position.</b></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum.Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac.</p>
+    </div>
+   </div>
+   
+<br><br>
+<h1>Image Grid</h1>
+<br><br>
+<div class="grid-container">
+    <img src="amgeqsamgeqsrightfrontthreequarter.jpg" alt="Image 1">
+    <img src="cretacretarightfrontthreequarter.jpg" alt="Image 2">
+    <img src="exterexterrightfrontthreequarter.jpg" alt="Image 3">
+    <img src="fronxfronxrightfrontthreequarter.jpg" alt="Image 4">
+    <img src="rsq8rsq8faceliftrightfrontthreequarter.jpg" alt="Image 5">
+    <img src="xuv700xuv700rightfrontthreequarter.jpg" alt="Image 6">
+</div>
+<br><br>
+<h1>Image Styling</h1>
+<br><br>
+
+<div class="imagestyle">
+    <h3>Cirlcled Image</h3>
+<br>
+    <img  id="s1"src="amgeqsamgeqsrightfrontthreequarter.jpg">
+    <br>
+    <h3>Rounded Image</h3>
+    <br>
+    <img id="s2"src="cretacretarightfrontthreequarter.jpg" alt="">
+
+</div>
+<h3>Image Text</h3>
+
+
+<div class="t">
+    <div class="container">
+        <img id="s3"src="fronxfronxrightfrontthreequarter.jpg" alt="Cinque Terre" width="600" height="400">
+        <div class="topleft">FRONX</div>
+      </div>
+</div>
+<div class="filter">
+    <br>
+    <h1>Filter Images</h1>
+    <br>
+    <img id="s4"src="rsq8rsq8faceliftrightfrontthreequarter.jpg" alt="">
+    <br><br><br>
+    <img id="s5"src="xuv700xuv700rightfrontthreequarter.jpg" alt="">
+    <br><br><br>
+    <img id="s6"src="exterexterrightfrontthreequarter.jpg" alt="">
+</div>
+</body>
+</html>
