@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorite Movies List</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+background-image:url("https://media.gettyimages.com/id/1951917913/video/z05-professional-lighting-equipment-tv-studio-set-stage-arena.jpg?s=640x640&k=20&c=g-ToinUe5zF-1UQ1W_NtWX9C1l-T5QWUlI4h5U1fDa0=");
+  background-size:cover;
+display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+background-image:url("https://media.istockphoto.com/id/1370787562/vector/two-black-spotlights-illuminated-on-yellow-wall-lamp-light-projectors-glowing-with-scattered.jpg?s=612x612&w=0&k=20&c=S-a4vVjFLtoTOnoknPk6ehtfe2eMGUUidWDe3ghk0WM=");
+ background-size:cover;
+ padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+min-height:350px;
+transition:all 0.2s linear;
+}
+.container:hover{
+transform:scale(1.05);
+box-shadow:4px 4px 10px black;
+}
+input {
+  padding: 10px;
+  margin-right: 10px;
+  width: 70%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+h1{
+margin-top:120px;
+}
+button {
+width:270px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background-color: #f9f9f9;
+  margin: 5px 0;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+li:hover {
+  background-color: #efefef;
+}
+
+#clear-list-btn {
+  margin-top: 20px;
+  background-color: #e74c3c;
+}
+
+#clear-list-btn:hover {
+  background-color: #c0392b;
+}
+</style>
+
+</head>
+<body>
+  <div class="container">
+<br>
+    <h1>Favorite Movies List</h1>
+    <input type="text" id="movie-input" placeholder="Enter movie name">
+    <br><br><br><br>
+<button id="add-movie-btn">Add Movie</button>
+    <ul id="movie-list"></ul>
+    <button id="clear-list-btn">Clear List</button>
+    <h4>Total Movies: <span id="movie-count">0</span></h4>
+  </div>
+<script>
+let movies = [];
+
+const movieInput = document.getElementById('movie-input');
+const addMovieBtn = document.getElementById('add-movie-btn');
+const movieList = document.getElementById('movie-list');
+const clearListBtn = document.getElementById('clear-list-btn');
+const movieCount = document.getElementById('movie-count');
+
+function updateMovieList() {
+  movieList.innerHTML = ''; // Clear current list
+  movies.forEach((movie, index) => {
+    const li = document.createElement('li');
+    li.textContent = movie;
+    li.addEventListener('click', () => removeMovie(index));
+    movieList.appendChild(li);
+  });
+
+  movieCount.textContent = movies.length;
+}
+
+function addMovie() {
+  const movieName = movieInput.value.trim();
+
+  if (movieName === '') {
+    alert('Please enter a movie name.');
+    return;
+  }
+
+  movies.push(movieName);
+  movieInput.value = ''; 
+  updateMovieList();
+}
+
+
+function removeMovie(index) {
+  movies.splice(index, 1);
+  updateMovieList();
+}
+
+function clearList() {
+  movies = [];
+  updateMovieList();
+}
+
+
+addMovieBtn.addEventListener('click', addMovie);
+clearListBtn.addEventListener('click', clearList);
+
+movieInput.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    addMovie();
+  }
+});
+
+</script>
+
+</body>
+</html>
