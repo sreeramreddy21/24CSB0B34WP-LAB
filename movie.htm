@@ -108,7 +108,7 @@ const clearListBtn = document.getElementById('clear-list-btn');
 const movieCount = document.getElementById('movie-count');
 
 function updateMovieList() {
-  movieList.innerHTML = ''; // Clear current list
+  movieList.innerHTML = '';
   movies.forEach((movie, index) => {
     const li = document.createElement('li');
     li.textContent = movie;
