@@ -67,9 +67,9 @@ class Product {
   const productsData = [
     new Product(1, 'Apple Watch Series 10', 499.99, 'apple-watch-series10-intro.jpg'),
     new Product(2, 'iPhone 16e', 599.99, 'iphone16e.jpg'),
-    new Product(2, 'iPhone 16', 799.99, 'iphone16.jpg'),
-    new Product(3, 'iphone 16 Pro', 999.99, 'iphone16-pro.jpg'),
-    new Product(4, 'Macbook M4 Pro', 1499.99, 'macbook1.jpg'),
+    new Product(3, 'iPhone 16', 799.99, 'iphone16.jpg'),
+    new Product(4, 'iphone 16 Pro', 999.99, 'iphone16-pro.jpg'),
+    new Product(5, 'Macbook M4 Pro', 1499.99, 'macbook1.jpg'),
   ];
   
   const cart = new Cart();
