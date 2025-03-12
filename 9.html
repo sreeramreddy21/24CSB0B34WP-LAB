@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Features</title>
+  <style>
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    body.light-mode {
+      background-color: white;
+      color: black;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: white;
+    }
+
+    #timer-display {
+      font-size: 50px;
+      margin-top: 20px;
+      padding: 20px;
+      width: 200px;
+      margin: 0 auto;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    #timer-display.green {
+      background-color: green;
+      color: white;
+    }
+
+    #timer-display.yellow {
+      background-color: yellow;
+      color: black;
+    }
+
+    #timer-display.red {
+      background-color: red;
+      color: white;
+    }
+
+    #styled-text {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    ul#item-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+    }
+
+    ul#item-list li {
+      padding: 5px;
+      background-color: #f0f0f0;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 8px;
+      margin: 5px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    .gallery {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .thumbnail {
+      width: 300px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.3s;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+
+    #large-image-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+
+    #large-image {
+      width: 500px;
+      border-radius: 10px;
+    }
+
+    header{
+      width: 100vw;
+      height: 60px;
+      background-color: #007BFF;
+      text-align: center;
+      color: white;
+    }
+    h1{
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body class="light-mode">
+  <header><h1>Interactive Webpage</h1></header>
+  <br><br>
+  <button id="theme-toggle">Toggle Theme</button>
+
+  <div id="timer-display">00:00</div>
+  <input type="number" id="time-input" placeholder="Enter time in seconds">
+  <button id="start-btn">Start</button>
+  <button id="pause-btn">Pause</button>
+  <button id="reset-btn">Reset</button>
+
+  <button id="style-change-btn">Change Text Style</button>
+  <p id="styled-text">This is some text.</p>
+
+  <input type="text" id="new-item-input" placeholder="Add new item">
+  <button id="add-item-btn">Add Item</button>
+
+  <ul id="item-list">
+    <li>Blue</li>
+    <li>Green</li>
+    <li>Red</li>
+    <li>Blue</li>
+  </ul>
+  <button id="sort-btn">Sort Alphabetically</button>
+  <button id="filter-btn">Filter Duplicates</button>
+  <button id="reverse-btn">Reverse Order</button>
+
+  <table id="data-table">
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Actions</th>
+    </tr>
+  </table>
+  <input type="text" id="name-input" placeholder="Name">
+  <input type="number" id="age-input" placeholder="Age">
+  <button id="add-row-btn">Add Row</button>
+
+  <div class="gallery">
+    <img src="iphone16-pro.jpg" alt="Image 1" class="thumbnail">
+    <img src="iphone16.jpg" alt="Image 2" class="thumbnail">
+    <img src="macbook1.jpg" alt="Image 3" class="thumbnail">
+  </div>
+  <div id="large-image-modal">
+    <img id="large-image" src="" alt="">
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.body.classList.add(savedTheme);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.body.classList.contains('light-mode') ? 'light-mode' : 'dark-mode';
+      const newTheme = currentTheme === 'light-mode' ? 'dark-mode' : 'light-mode';
+      document.body.classList.replace(currentTheme, newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+
+    let timer;
+    let timeLeft;
+    const timerDisplay = document.getElementById('timer-display');
+    const timeInput = document.getElementById('time-input');
+    const startBtn = document.getElementById('start-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const resetBtn = document.getElementById('reset-btn');
+
+    startBtn.addEventListener('click', startTimer);
+    pauseBtn.addEventListener('click', pauseTimer);
+    resetBtn.addEventListener('click', resetTimer);
+
+    function startTimer() {
+  const time = parseInt(timeInput.value, 10);
+  if (isNaN(time) || time <= 0) return;
+  timeLeft = time;
+
+  timer = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateTimerDisplay();
+    } else {
+      clearInterval(timer);
+      alert('Timer is complete!');
+    }
+  }, 1000);
+}
+
+
+    function pauseTimer() {
+      clearInterval(timer);
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timeLeft = 0;
+      timerDisplay.textContent = '00:00';
+      timerDisplay.className = '';
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+      if (timeLeft > 10) {
+        timerDisplay.className = 'green';
+      } else if (timeLeft > 5) {
+        timerDisplay.className = 'yellow';
+      } else {
+        timerDisplay.className = 'red';
+      }
+    }
+
+    const styleChangeBtn = document.getElementById('style-change-btn');
+    const styledText = document.getElementById('styled-text');
+
+    styleChangeBtn.addEventListener('click', () => {
+      styledText.style.color = 'blue';
+      styledText.style.fontSize = '2rem';
+      styledText.style.fontWeight = 'bold';
+    });
+
+    const itemList = document.getElementById('item-list');
+    const newItemInput = document.getElementById('new-item-input');
+    const addItemBtn = document.getElementById('add-item-btn');
+    const sortBtn = document.getElementById('sort-btn');
+    const filterBtn = document.getElementById('filter-btn');
+    const reverseBtn = document.getElementById('reverse-btn');
+
+    addItemBtn.addEventListener('click', addItem);
+    sortBtn.addEventListener('click', sortList);
+    filterBtn.addEventListener('click', filterDuplicates);
+    reverseBtn.addEventListener('click', reverseList);
+
+    function addItem() {
+      const newItem = newItemInput.value.trim();
+      if (newItem !== '') {
+        const li = document.createElement('li');
+        li.textContent = newItem;
+        itemList.appendChild(li);
+        newItemInput.value = '';
+      }
+    }
+
+    function sortList() {
+      const items = Array.from(itemList.children);
+      items.sort((a, b) => a.textContent.localeCompare(b.textContent));
+      itemList.innerHTML = '';
+      items.forEach(item => itemList.appendChild(item));
+    }
+
+    function filterDuplicates() {
+      const items = Array.from(itemList.children);
+      const uniqueItems = Array.from(new Set(items.map(item => item.textContent)));
+      itemList.innerHTML = '';
+      uniqueItems.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        itemList.appendChild(li);
+      });
+    }
+
+    function reverseList() {
+      const items = Array.from(itemList.children);
+      itemList.innerHTML = '';
+      items.reverse().forEach(item => itemList.appendChild(item));
+    }
+
+    const addRowBtn = document.getElementById('add-row-btn');
+    const nameInput = document.getElementById('name-input');
+    const ageInput = document.getElementById('age-input');
+    const dataTable = document.getElementById('data-table');
+
+    addRowBtn.addEventListener('click', addRow);
+
+    function addRow() {
+      const name = nameInput.value;
+      const age = ageInput.value;
+      if (!name || !age) return;
+
+      const row = document.createElement('tr');
+      row.innerHTML = ` 
+        <td>${name}</td>
+        <td>${age}</td>
+        <td><button class="delete-btn">Delete</button></td>
+      `;
+      dataTable.appendChild(row);
+
+      const deleteBtn = row.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', () => {
+        row.remove();
+      });
+    }
+
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const largeImageModal = document.getElementById('large-image-modal');
+    const largeImage = document.getElementById('large-image');
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', () => {
+        largeImage.src = thumbnail.src;
+        largeImageModal.style.display = 'block';
+      });
+    });
+
+    largeImageModal.addEventListener('click', () => {
+      largeImageModal.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
