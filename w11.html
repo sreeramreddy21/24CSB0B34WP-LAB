@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .light { background-color: #f5f5f5; color: #333; }
+        .dark { background-color: #222; color: #f5f5f5; }
+        .neon { background-color: #0f0f1a; color: #0ff; }
+        .custom { background-color: #f0e6ff; color: #5a2d9a; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .theme-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .date-display {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .time-display {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .neon .time-display {
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .section {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .alarms-list {
+            list-style-type: none;
+        }
+
+        .alarm-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 100%;
+        }
+
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .alert.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .time-display { font-size: 48px; }
+            .controls { flex-direction: column; }
+        }
+    </style>
+</head>
+<body class="light">
+    <header>
+        <h1>Digital Clock</h1>
+        <div class="theme-switcher">
+            <button class="theme-btn" data-theme="light">Light</button>
+            <button class="theme-btn" data-theme="dark">Dark</button>
+            <button class="theme-btn" data-theme="neon">Neon</button>
+            <button class="theme-btn" data-theme="custom">Custom</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="clock-container">
+            <div class="date-display" id="date-display"></div>
+            <div class="time-display" id="time-display"></div>
+        </div>
+
+        <div class="section">
+            <h2>Alarm</h2>
+            <div class="controls">
+                <input type="time" id="alarm-time">
+                <button class="btn" id="set-alarm-btn">Set Alarm</button>
+            </div>
+            <ul class="alarms-list" id="alarms-list"></ul>
+        </div>
+
+        <div class="section">
+            <h2>Stopwatch</h2>
+            <div id="stopwatch-display">00:00:00</div>
+            <div class="controls">
+                <button class="btn" id="start-stopwatch-btn">Start</button>
+                <button class="btn" id="pause-stopwatch-btn" disabled>Pause</button>
+                <button class="btn" id="reset-stopwatch-btn" disabled>Reset</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Timer</h2>
+            <div class="controls">
+                <input type="number" id="minutes-input" min="0" value="1" placeholder="Min">
+                <input type="number" id="seconds-input" min="0" value="0" placeholder="Sec">
+                <button class="btn" id="start-timer-btn">Start</button>
+                <button class="btn" id="pause-timer-btn" disabled>Pause</button>
+                <button class="btn" id="reset-timer-btn" disabled>Reset</button>
+            </div>
+            <div id="timer-display">01:00</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="alert" id="alert"></div>
+    <audio id="alarm-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
+
+    <script>
+    
+        const timeDisplay = document.getElementById('time-display');
+        const dateDisplay = document.getElementById('date-display');
+        const alarmTimeInput = document.getElementById('alarm-time');
+        const setAlarmBtn = document.getElementById('set-alarm-btn');
+        const alarmsList = document.getElementById('alarms-list');
+        const startStopwatchBtn = document.getElementById('start-stopwatch-btn');
+        const pauseStopwatchBtn = document.getElementById('pause-stopwatch-btn');
+        const resetStopwatchBtn = document.getElementById('reset-stopwatch-btn');
+        const stopwatchDisplay = document.getElementById('stopwatch-display');
+        const minutesInput = document.getElementById('minutes-input');
+        const secondsInput = document.getElementById('seconds-input');
+        const startTimerBtn = document.getElementById('start-timer-btn');
+        const pauseTimerBtn = document.getElementById('pause-timer-btn');
+        const resetTimerBtn = document.getElementById('reset-timer-btn');
+        const timerDisplay = document.getElementById('timer-display');
+        const progressBar = document.getElementById('progress-bar');
+        const alertBox = document.getElementById('alert');
+        const alarmSound = document.getElementById('alarm-sound');
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        const body = document.body;
+
+       
+        let alarms = [];
+        let stopwatchInterval;
+        let stopwatchTime = 0;
+        let stopwatchRunning = false;
+        let timerInterval;
+        let timerTime = 0;
+        let timerRunning = false;
+        let timerTotalTime = 0;
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+       
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                body.className = btn.getAttribute('data-theme');
+            });
+        });
+
+   
+        function updateClock() {
+            const now = new Date();
+            
+           
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            timeDisplay.innerHTML = `${hours}:${minutes}<span class="blink">:</span>${seconds} ${ampm}`;
+            
+            
+            dateDisplay.textContent = now.toLocaleDateString();
+            
+
+            checkAlarms(now);
+        }
+
+        function checkAlarms(now) {
+            const currentHours = now.getHours();
+            const currentMinutes = now.getMinutes();
+            const currentSeconds = now.getSeconds();
+            
+            if (currentSeconds !== 0) return;
+            
+            alarms.forEach(alarm => {
+                if (alarm.enabled && alarm.hours === currentHours && alarm.minutes === currentMinutes) {
+                    triggerAlarm(alarm);
+                }
+            });
+        }
+
+        function triggerAlarm(alarm) {
+            alarmSound.play();
+            showAlert(`Alarm: ${formatTime(alarm.hours, alarm.minutes)}`);
+        }
+
+        function formatTime(hours, minutes) {
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            return `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+        }
+
+        function renderAlarms() {
+            alarmsList.innerHTML = '';
+            
+            alarms.forEach(alarm => {
+                const li = document.createElement('li');
+                li.className = 'alarm-item';
+                
+                li.innerHTML = `
+                    <span>${formatTime(alarm.hours, alarm.minutes)}</span>
+                    <span style="color: ${alarm.enabled ? '#4CAF50' : '#FF5722'}">
+                        ${alarm.enabled ? 'Enabled' : 'Disabled'}
+                    </span>
+                    <button class="btn" onclick="toggleAlarm(${alarm.id})">
+                        ${alarm.enabled ? 'Disable' : 'Enable'}
+                    </button>
+                    <button class="delete-btn" onclick="deleteAlarm(${alarm.id})">Delete</button>
+                `;
+                
+                alarmsList.appendChild(li);
+            });
+        }
+
+        setAlarmBtn.addEventListener('click', setAlarm);
+
+        function setAlarm() {
+            const alarmTime = alarmTimeInput.value;
+            if (!alarmTime) return;
+            
+            const [hours, minutes] = alarmTime.split(':').map(Number);
+            
+            alarms.push({
+                id: Date.now(),
+                hours,
+                minutes,
+                enabled: true
+            });
+            
+            renderAlarms();
+            alarmTimeInput.value = '';
+        }
+
+        window.toggleAlarm = function(id) {
+            const alarm = alarms.find(a => a.id === id);
+            if (alarm) alarm.enabled = !alarm.enabled;
+            renderAlarms();
+        };
+
+        window.deleteAlarm = function(id) {
+            alarms = alarms.filter(a => a.id !== id);
+            renderAlarms();
+        };
+
+        startStopwatchBtn.addEventListener('click', startStopwatch);
+        pauseStopwatchBtn.addEventListener('click', pauseStopwatch);
+        resetStopwatchBtn.addEventListener('click', resetStopwatch);
+
+        function startStopwatch() {
+            if (!stopwatchRunning) {
+                stopwatchRunning = true;
+                startStopwatchBtn.disabled = true;
+                pauseStopwatchBtn.disabled = false;
+                resetStopwatchBtn.disabled = false;
+                
+                const startTime = Date.now() - stopwatchTime;
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime = Date.now() - startTime;
+                    updateStopwatchDisplay();
+                }, 10);
+            }
+        }
+
+        function pauseStopwatch() {
+            stopwatchRunning = false;
+            clearInterval(stopwatchInterval);
+            startStopwatchBtn.disabled = false;
+            pauseStopwatchBtn.disabled = true;
+        }
+
+        function resetStopwatch() {
+            stopwatchRunning = false;
+            clearInterval(stopwatchInterval);
+            stopwatchTime = 0;
+            updateStopwatchDisplay();
+            startStopwatchBtn.disabled = false;
+            pauseStopwatchBtn.disabled = true;
+            resetStopwatchBtn.disabled = true;
+        }
+
+        function updateStopwatchDisplay() {
+            const totalSeconds = Math.floor(stopwatchTime / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            stopwatchDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        startTimerBtn.addEventListener('click', startTimer);
+        pauseTimerBtn.addEventListener('click', pauseTimer);
+        resetTimerBtn.addEventListener('click', resetTimer);
+
+        function startTimer() {
+            if (!timerRunning) {
+                const minutes = parseInt(minutesInput.value) || 0;
+                const seconds = parseInt(secondsInput.value) || 0;
+                
+                if (minutes === 0 && seconds === 0) return;
+                
+                timerTime = (minutes * 60 + seconds) * 1000;
+                timerTotalTime = timerTime;
+                
+                timerRunning = true;
+                startTimerBtn.disabled = true;
+                pauseTimerBtn.disabled = false;
+                resetTimerBtn.disabled = false;
+                
+                updateTimerDisplay();
+                updateProgressBar();
+                
+                const startTime = Date.now();
+                timerInterval = setInterval(() => {
+                    const elapsed = Date.now() - startTime;
+                    timerTime = Math.max(timerTotalTime - elapsed, 0);
+                    
+                    updateTimerDisplay();
+                    updateProgressBar();
+                    
+                    if (timerTime <= 0) {
+                        timerComplete();
+                    }
+                }, 10);
+            }
+        }
+
+        function pauseTimer() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            startTimerBtn.disabled = false;
+            pauseTimerBtn.disabled = true;
+        }
+
+        function resetTimer() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            timerTime = 0;
+            updateTimerDisplay();
+            startTimerBtn.disabled = false;
+            pauseTimerBtn.disabled = true;
+            resetTimerBtn.disabled = true;
+            progressBar.style.width = '100%';
+        }
+
+        function updateTimerDisplay() {
+            const totalSeconds = Math.ceil(timerTime / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            
+            timerDisplay.textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateProgressBar() {
+            const percentage = (timerTime / timerTotalTime) * 100;
+            progressBar.style.width = `${Math.max(percentage, 0)}%`;
+        }
+
+        function timerComplete() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            alarmSound.play();
+            showAlert('Timer completed!');
+            setTimeout(() => alarmSound.pause(), 5000);
+        }
+        function showAlert(message) {
+            alertBox.textContent = message;
+            alertBox.classList.add('show');
+            setTimeout(() => alertBox.classList.remove('show'), 5000);
+        }
+    </script>
+</body>
+</html>
